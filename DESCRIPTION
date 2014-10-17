@@ -1,0 +1,10 @@
+Package: intpoc
+Type: Package
+Title: Aspects of interpolated curves
+Version: 0.1
+Date: 2014-10-16
+Author: Who wrote it
+Maintainer: Henrik Renlund <henrikrenlund@gmail.com>
+Description: Calculate things like area under the curve when the curve is the
+    interpolation of points. Something like that.
+License: GPL-3
