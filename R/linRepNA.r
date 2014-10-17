@@ -14,7 +14,7 @@
 #' @export
 
 
-replaceNA <- function(x,
+linRepNA <- function(x,
                       y,
                       par.test =TRUE,
                       display = FALSE){

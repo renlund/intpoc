@@ -9,7 +9,7 @@
 #' @param y.NA: character; "allow"="a", "warn"="w" or "stop"="s". This tells
 #'       the function how to deal with missing y-coordinates. If
 #'       "stop", then no missing values are allowed, so the function stops.
-#'       If "allow" or "warn" then \code{replaceNA(x,y)} is used to replace
+#'       If "allow" or "warn" then \code{linRepNA(x,y)} is used to replace
 #'       the missing values with the linearly interpolated value or
 #'       the "last observation carried forward" if the missing value is
 #'       is at the end of the vector (and analagously if the missing value
@@ -90,7 +90,7 @@ tir  <-  function(x, # SKA DEN INTE HETA TIR?????
             if(y.NA %in% YNA[3:4]) warning("[tir]: y has missing values")
             if(y.NA %in% YNA[5:6]) stop("[tir]: y has missing values")
         }
-        if(is.element(y.NA,YNA[1:4])) y <- replaceNA(x,y)
+        if(is.element(y.NA,YNA[1:4])) y <- linRepNA(x,y)
     }
     # END OF FIRST PART   <----------------------------------------------
     N <- length(x.int)

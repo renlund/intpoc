@@ -24,7 +24,7 @@ the single unique x-value and the corresponding mean (non-\code{NA}) y-value}
 \item{y.NA:}{character; "allow"="a", "warn"="w" or "stop"="s". This tells
 the function how to deal with missing y-coordinates. If
 "stop", then no missing values are allowed, so the function stops.
-If "allow" or "warn" then \code{replaceNA(x,y)} is used to replace
+If "allow" or "warn" then \code{linRepNA(x,y)} is used to replace
 the missing values with the linearly interpolated value or
 the "last observation carried forward" if the missing value is
 is at the end of the vector (and analagously if the missing value
