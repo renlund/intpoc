@@ -1,10 +1,14 @@
 Package: intpoc
 Type: Package
-Title: Aspects of interpolated curves
+Title: Selected statistics of interpolated points
 Version: 0.1
 Date: 2014-10-16
 Author: Who wrote it
 Maintainer: Henrik Renlund <henrikrenlund@gmail.com>
-Description: Calculate things like area under the curve when the curve is the
-    interpolation of points. Something like that.
+Description: Points are considered defining a piece-wise linear curve. For these
+curves this package can calculate 'Time in Range', mean and standard deviation.
+(These have a very specific use in a project I'm working on... Not considered
+to be interesting in general.)
 License: GPL-3
+Depends:
+    dplyr
