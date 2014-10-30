@@ -3,7 +3,7 @@
 \alias{win_mean}
 \title{Mean-ish of time series}
 \usage{
-win_mean(x, y, x., win)
+win_mean(x, y, x., win, check = TRUE, mess = FALSE)
 }
 \arguments{
 \item{x}{'time' variable}
@@ -13,6 +13,10 @@ win_mean(x, y, x., win)
 \item{x.}{point at which to calculate mean}
 
 \item{win}{window over whitch to calculate mean}
+
+\item{check}{apply checking function \code{check_num_vec} to \code{x} and \code{y}?}
+
+\item{mess}{messages on?}
 }
 \description{
 Calculate the average of an interpolated curve
