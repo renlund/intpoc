@@ -1,21 +1,20 @@
-#' @title calculate time in range for a pair of points
-#' @description interpolate linarly between the two points with x-coord. #' x'
-#'   and y-coord. 'y'. If 'x' represents time, TiR.help calculates the amount of
-#'   time the curve spends in the interval given by 'y.int' during the time
-#'   'x.int' .  If incl.low= TRUE (default FALSE) then the int is ''[ ]''
-#'   (rather than ''( ]''
-#' @param x numerical; x-coordinates of the two points of interest
-#' @param y numerical; y-coordinates of the two points of interest
-#' @param y.int numerical; the intervall (as a vector of length 2) of interest
-#' @param x.int numerical; analogous to 'y.int'.  Default= -Inf,Inf
-#' @param incl.low logical; if TRUE then int=c(a,b) is interpreted as [a,b] if
-#'   FALSE then as (a,b]. (FALSE if missing)
-#' @param y.int.order character; "allow"="a", "warn"="w" or "stop"="s". This
-#'   tells the function how to deal with an unordered 'y.int'.
-#' @param x.int.order character; analogous to 'y.int.order
-#' @return If it does not stop due to incorrect arguments it always return a
-#'   numeric value.
-#' @export
+# @title calculate time in range for a pair of points
+# @description interpolate linarly between the two points with x-coord. # x'
+#   and y-coord. 'y'. If 'x' represents time, TiR.help calculates the amount of
+#   time the curve spends in the interval given by 'y.int' during the time
+#   'x.int' .  If incl.low= TRUE (default FALSE) then the int is ''[ ]''
+#   (rather than ''( ]''
+# @param x numerical; x-coordinates of the two points of interest
+# @param y numerical; y-coordinates of the two points of interest
+# @param y.int numerical; the intervall (as a vector of length 2) of interest
+# @param x.int numerical; analogous to 'y.int'.  Default= -Inf,Inf
+# @param incl.low logical; if TRUE then int=c(a,b) is interpreted as [a,b] if
+#   FALSE then as (a,b]. (FALSE if missing)
+# @param y.int.order character; "allow"="a", "warn"="w" or "stop"="s". This
+#   tells the function how to deal with an unordered 'y.int'.
+# @param x.int.order character; analogous to 'y.int.order
+# @return If it does not stop due to incorrect arguments it always return a
+#   numeric value.
 
 tir.for.pair <- function(x, y,
                          y.int, x.int, incl.low,

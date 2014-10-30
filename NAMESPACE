@@ -2,5 +2,5 @@
 
 export(linRepNA)
 export(tir)
-export(tir.for.pair)
 export(win_mean)
+importFrom(dplyr,data_frame)
