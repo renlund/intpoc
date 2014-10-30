@@ -10,6 +10,8 @@ linRepNA(x, y, par.test = TRUE, display = FALSE)
 
 \item{y}{numerical; y-coordinates of the points of interest}
 
+\item{par.test}{logical; test for sane parameters?}
+
 \item{display}{logical; if TRUE then x, y and the replaced y is shown, for
 evaluation purpose. (FALSE if missing.)}
 }

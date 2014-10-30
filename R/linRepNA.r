@@ -7,6 +7,7 @@
 #'   Parameters ----------
 #' @param x numerical; x-coordinates of the points of interest
 #' @param y numerical; y-coordinates of the points of interest
+#' @param par.test logical; test for sane parameters?
 #' @param display logical; if TRUE then x, y and the replaced y is shown, for
 #'   evaluation purpose. (FALSE if missing.)
 #' @return numeric vector of interpolated y-values  UNLESS display = TRUE in

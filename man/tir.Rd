@@ -21,7 +21,7 @@ to "disappear". E.g. if a fixed x-value occurs multiple times
 (in the x-vector), then \code{group = TRUE} will replace these values with
 the single unique x-value and the corresponding mean (non-\code{NA}) y-value}
 
-\item{y.NA:}{character; "allow"="a", "warn"="w" or "stop"="s". This tells
+\item{y.NA}{character; "allow"="a", "warn"="w" or "stop"="s". This tells
 the function how to deal with missing y-coordinates. If
 "stop", then no missing values are allowed, so the function stops.
 If "allow" or "warn" then \code{linRepNA(x,y)} is used to replace
@@ -30,6 +30,10 @@ the "last observation carried forward" if the missing value is
 is at the end of the vector (and analagously if the missing value
 is at the beginning. If "warn" then the function will also warn
 that this has been done. ("allow" if missing.)}
+
+\item{incl.low}{logical; should lower bound be inclusive (only when \code{length(y.int)==2})}
+
+\item{par.test}{logical; should we test for sane parameter values?}
 }
 \value{
 A \code{data.frame} with

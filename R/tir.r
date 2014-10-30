@@ -6,7 +6,13 @@
 #' @param y numerical; y-coordinates of points of interest
 #' @param y.int numerical; the INR intervals of interest
 #' @param x.int numerical, the time intervals of interest
-#' @param y.NA: character; "allow"="a", "warn"="w" or "stop"="s". This tells
+#' @param group logical; if \code{TRUE} 'Group.mean' (no!) will be called to
+#'       handle the situation of non-unique x-values
+#'       NOTE; if TRUE this may cause some missing y-coordinates
+#'       to "disappear". E.g. if a fixed x-value occurs multiple times
+#'       (in the x-vector), then \code{group = TRUE} will replace these values with
+#'       the single unique x-value and the corresponding mean (non-\code{NA}) y-value
+#' @param y.NA character; "allow"="a", "warn"="w" or "stop"="s". This tells
 #'       the function how to deal with missing y-coordinates. If
 #'       "stop", then no missing values are allowed, so the function stops.
 #'       If "allow" or "warn" then \code{linRepNA(x,y)} is used to replace
@@ -15,12 +21,8 @@
 #'       is at the end of the vector (and analagously if the missing value
 #'       is at the beginning. If "warn" then the function will also warn
 #'       that this has been done. ("allow" if missing.)
-#' @param group logical; if \code{TRUE} 'Group.mean' (no!) will be called to
-#'       handle the situation of non-unique x-values
-#'       NOTE; if TRUE this may cause some missing y-coordinates
-#'       to "disappear". E.g. if a fixed x-value occurs multiple times
-#'       (in the x-vector), then \code{group = TRUE} will replace these values with
-#'       the single unique x-value and the corresponding mean (non-\code{NA}) y-value
+#' @param incl.low logical; should lower bound be inclusive (only when \code{length(y.int)==2})
+#' @param par.test logical; should we test for sane parameter values?
 #' @return A \code{data.frame} with
 #' \code{R.l} = lower part of the interval for which TiR is calculated
 #' \code{R.h} = upper part of the interval for which TiR is calculated
