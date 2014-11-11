@@ -1,4 +1,4 @@
-context("'win_mean' and helper functions are ok")
+context("all tests of 'win_mean' and helper functions")
 
 test_that("'check_num_pair' works", {
     expect_null(check_num_pair(1:2, 2:1))

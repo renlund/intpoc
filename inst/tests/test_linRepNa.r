@@ -1,3 +1,5 @@
+context("all tests of 'linRepNA'")
+
 test_that("basic functionality is ok", {
     expect_equal(linRepNA(1:3, 1:3, T), 1:3)
     expect_equal(linRepNA(1:3, c(1,NA,3), T), 1:3)

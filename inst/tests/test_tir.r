@@ -1,4 +1,4 @@
-context("tir tests")
+context("all tests of 'tir'")
 
 test_that("'tir' works [MORE TESTS NEEDED]", {
     x <- 1:3

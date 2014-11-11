@@ -1,4 +1,4 @@
-context("'tir.for.pair' tests")
+context("all tests of 'tir.for.pair'")
 
 test_that("the basics work",{
     x = c(0,1)
