@@ -8,23 +8,15 @@
 #' @param x numerical; x-coordinates of the points of interest
 #' @param y numerical; y-coordinates of the points of interest
 #' @param par.test logical; test for sane parameters?
-#' @param display logical; if TRUE then x, y and the replaced y is shown, for
-#'   evaluation purpose. (FALSE if missing.)
 #' @return numeric vector of interpolated y-values  UNLESS display = TRUE in
 #'   which case one gets a dataframe of input AND output.
 #' @export
 
 
-linRepNA <- function(x,
-                      y,
-                      par.test =TRUE,
-                      display = FALSE){
+linRepNA <- function(x, y, par.test =TRUE){
     # FIRST PART makes sure arguments are ok ------------->
     n <- length(y)
     if(par.test) {
-        if(!is.logical(display)) {
-            stop("[Replace.NA]: 'display' must be logical")
-        }
         if(length(x)!=n) {
             stop("[Replace.NA]: 'x' and 'y' must be of the same length")
         }
@@ -46,9 +38,6 @@ linRepNA <- function(x,
             }
         }
         if(sum(is.na(y))==0) {
-            if(display) {
-                warning("[Replace.NA]: No missing values, nothing displayed.")
-            }
             return(y)
         }
     }
@@ -89,11 +78,5 @@ linRepNA <- function(x,
         copy_y[temp] <-
             ((y[c2]-y[c1])*x[temp]+y[c1]*x[c2]-y[c2]*x[c1])/(x[c2]-x[c1])
     }
-    if(display)  {
-        DF <- data.frame(x,y,copy_y)
-        names(DF) <- c("Given x:","and y:","Replace.NA(x,y):")
-        return(DF)
-    } else {
-        return(copy_y)
-    }
+    copy_y
 }

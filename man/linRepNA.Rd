@@ -3,7 +3,7 @@
 \alias{linRepNA}
 \title{Replace \code{NA}:s with interpolated values}
 \usage{
-linRepNA(x, y, par.test = TRUE, display = FALSE)
+linRepNA(x, y, par.test = TRUE)
 }
 \arguments{
 \item{x}{numerical; x-coordinates of the points of interest}
@@ -11,9 +11,6 @@ linRepNA(x, y, par.test = TRUE, display = FALSE)
 \item{y}{numerical; y-coordinates of the points of interest}
 
 \item{par.test}{logical; test for sane parameters?}
-
-\item{display}{logical; if TRUE then x, y and the replaced y is shown, for
-evaluation purpose. (FALSE if missing.)}
 }
 \value{
 numeric vector of interpolated y-values  UNLESS display = TRUE in
