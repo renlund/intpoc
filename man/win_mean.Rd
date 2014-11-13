@@ -3,7 +3,8 @@
 \alias{win_mean}
 \title{Mean-ish of time series}
 \usage{
-win_mean(x, y, x., win, check = TRUE, mess = FALSE)
+win_mean(x, y, x., win, gap = Inf, y.NA = "interpolate", check = TRUE,
+  mess = FALSE)
 }
 \arguments{
 \item{x}{'time' variable}
@@ -14,7 +15,13 @@ win_mean(x, y, x., win, check = TRUE, mess = FALSE)
 
 \item{win}{window over whitch to calculate mean}
 
-\item{check}{apply checking function \code{check_num_vec} to \code{x} and \code{y}?}
+\item{gap}{tolerance level for distance between entries in \code{x}}
+
+\item{y.NA}{how should \code{NA} in \code{y} be handled. Currently "remove"
+and "interpolate" is available.}
+
+\item{check}{apply checking function \code{check_num_vec} to \code{x} and
+\code{y}?}
 
 \item{mess}{messages on?}
 }

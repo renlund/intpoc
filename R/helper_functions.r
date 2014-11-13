@@ -8,7 +8,7 @@ dput2 <- function(x){
 
 #' @importFrom dplyr data_frame
 
-check_num_vec <- function(x, y, pre_mess="", mess=TRUE){
+check_num_vec <- function(x, y, pre_mess="", y.NA="remove", mess=TRUE){
     changes_made <- FALSE
     if(any(is.na(x))) {
         warning(paste(pre_mess, "no NA:s in x, please"))
@@ -18,6 +18,10 @@ check_num_vec <- function(x, y, pre_mess="", mess=TRUE){
     if(length(y) != n) {
         warning(paste(pre_mess, "x, y lengths differ"))
         return(invisible(NA))
+    }
+    if(!y.NA %in% c("r", "remove", "i", "interpolate")){
+        warning("[check_num_vec] 'y.NA' should be 'remove' (or 'r') or 'interpolate' (or 'i'). Has been set to 'r'.")
+        y.NA <- "remove"
     }
     if(any(diff(sort(x))==0)){
         if(mess) message(paste(pre_mess, "for non-unique x's the corresponding mean of y is used"))
@@ -38,15 +42,22 @@ check_num_vec <- function(x, y, pre_mess="", mess=TRUE){
         warning(paste(pre_mess), "(unique) x needs to be of length > 1")
         return(invisible(NA))
     }
-    y_NA <- is.na(y)
-    if(all(y_NA)) {
+    y_NA_indx <- is.na(y)
+    if(all(y_NA_indx)) {
         warning(paste(pre_mess, "y is too NA-infested"))
         return(invisible(NA))
     }
     if(any(is.na(y))){
-        y <- linRepNA(x, y, F, F)
-        changes_made <- TRUE
-        if(mess) message(paste(pre_mess, "'y' had NA:s which were interpolated"))
+        if(y.NA %in% c("i", "interpolate")){
+            y <- linRepNA(x, y, F)
+            changes_made <- TRUE
+            if(mess) message(paste(pre_mess, "'y' had NA:s which were interpolated"))
+        }
+        if(y.NA %in% c("r", "remove")){
+            x <- x[!is.na(y)]
+            y <- y[!is.na(y)]
+            changes_made  <- TRUE
+        }
     }
     if(changes_made) data_frame(x=x, y=y) else invisible(NULL)
 }
@@ -60,9 +71,10 @@ windowize <- function(x, y, x., win, check=TRUE, pre_mess = "", mess=FALSE){
             if(!is.null(df)){
                 x <- df$x
                 y <- df$y
+                changes_made <- TRUE
             }
         } else {
-            if(mess) warning("[windowize] num_check_vec failed")
+            if(mess) warning("[windowize] check_num_vec failed")
             return(invisible(NA))
         }
     }
@@ -71,10 +83,14 @@ windowize <- function(x, y, x., win, check=TRUE, pre_mess = "", mess=FALSE){
         x. <- x[n]
         if(mess) message(paste(pre_mess, "latest timepoint used as 'x.'"))
     }
-    if(x.>x[n] | x.<x[1]) {
+    if(win_missing <- missing(win)){
+        win <- diff(range(x))
+        if(mess) message(paste(pre_mess, "span x used as 'win'"))
+    }
+    if(x.-win>=x[n] | x.<=x[1]) {
         if(mess) warning(paste(pre_mess, "'x.' out of range (of 'x')"))
         return(invisible(NA))
-    } else {
+    } else if(x.<=x[n]) {
         if(x. %in% x){
             if(x.!=x[n]){
                 y <- y[x<=x.]
@@ -90,22 +106,21 @@ windowize <- function(x, y, x., win, check=TRUE, pre_mess = "", mess=FALSE){
             changes_made <- TRUE
         }
     }
-    if(missing(win)){
-        win <- diff(range(x))
-        if(mess) message(paste(pre_mess, "span x used as 'win'"))
-    } else {
+    if(!win_missing){
         low <- x.-win
-        if(low %in% x | low < x[1]){
-            y <- y[x>=low]
-            x <- x[x>=low]
-        } else {
-            i <- sum(x<low)
-            L <- line(x[i:(i+1)], y[i:(i+1)], check = FALSE)
-            y_new <- unname(L['intersect'] + L['slope']*low)
-            x <- c(low, x[(i+1):n])
-            y <- c(y_new, y[(i+1):n])
+        if(low>x[1]){
+            if(low %in% x){
+                y <- y[x>=low]
+                x <- x[x>=low]
+            } else {
+                i <- sum(x<low)
+                L <- line(x[i:(i+1)], y[i:(i+1)], check = FALSE)
+                y_new <- unname(L['intersect'] + L['slope']*low)
+                x <- c(low, x[(i+1):n])
+                y <- c(y_new, y[(i+1):n])
+            }
+            changes_made <- TRUE
         }
-        changes_made <- TRUE
     }
     if(changes_made) data_frame(x=x, y=y) else invisible(NULL)
 }
@@ -186,3 +201,30 @@ vecre <- function(x, y, check=TRUE){
     s
 }
 
+win_mean_for_lapply <- function(df, x., win, check=FALSE, gap=Inf, mess=FALSE){
+    if(nrow(df)>1){
+        win_mean(
+            x = df$x,
+            y = df$y,
+            x. = x.,
+            win = win,
+            check = check,
+            mess = mess
+        )
+    } else {
+        NULL
+    }
+}
+
+extract_stuff <- function(storage){
+    get <- c("int", "sq_int", "span", "sum", "sq_sum", "n_y", "parts", "parts_info")
+    n <- length(storage)
+    r <- matrix(NA_real_, nrow=n, ncol=length(get))
+    colnames(r) <- get
+    for(indx in 1:n){ # indx = 1
+        if(!is.null(storage[[indx]])){
+            r[indx,] <- as.numeric(storage[[indx]][get])
+        }
+    }
+    colSums(r, na.rm = TRUE)
+}
