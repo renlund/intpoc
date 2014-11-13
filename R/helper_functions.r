@@ -49,7 +49,7 @@ check_num_vec <- function(x, y, pre_mess="", y.NA="remove", mess=TRUE){
     }
     if(any(is.na(y))){
         if(y.NA %in% c("i", "interpolate")){
-            y <- linRepNA(x, y, F)
+            y <- rep_na(x, y, F)
             changes_made <- TRUE
             if(mess) message(paste(pre_mess, "'y' had NA:s which were interpolated"))
         }

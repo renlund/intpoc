@@ -136,7 +136,7 @@ test_that("'win_mean' works recursively", {
     expect_equivalent(r.$n_y, 5)
     expect_equivalent(r.$parts, 3)
     expect_equivalent(r.$parts_info, 2)
-    y_ <- linRepNA(x = c(x1,3), y=c(y1,NA))
+    y_ <- rep_na(x = c(x1,3), y=c(y1,NA))
     r1 <- win_mean(x = c(x1, 3), y=c(y1, NA))
     r2 <- win_mean(x = c(x1, 3), y=y_)
     expect_equal(r1$int, r2$int)

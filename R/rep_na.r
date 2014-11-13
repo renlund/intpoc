@@ -13,7 +13,7 @@
 #' @export
 
 
-linRepNA <- function(x, y, par.test =TRUE){
+rep_na <- function(x, y, par.test =TRUE){
     # FIRST PART makes sure arguments are ok ------------->
     n <- length(y)
     if(par.test) {
