@@ -3,7 +3,8 @@
 \alias{tir}
 \title{Time In Range for 'time-series' like series... sort of.}
 \usage{
-tir(x, y, y.int, x.int, group, y.NA, incl.low, par.test = TRUE)
+tir(x, y, y.int, x.int, group, y.NA, incl.low, par.test = TRUE,
+  mess = FALSE)
 }
 \arguments{
 \item{x}{numerical; x-coordinates of points of interest}
@@ -34,6 +35,8 @@ that this has been done. ("allow" if missing.)}
 \item{incl.low}{logical; should lower bound be inclusive (only when \code{length(y.int)==2})}
 
 \item{par.test}{logical; should we test for sane parameter values?}
+
+\item{mess}{logical; do you want messages? (default \code{FALSE})}
 }
 \value{
 A \code{data.frame} with

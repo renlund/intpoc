@@ -23,6 +23,7 @@
 #'       that this has been done. ("allow" if missing.)
 #' @param incl.low logical; should lower bound be inclusive (only when \code{length(y.int)==2})
 #' @param par.test logical; should we test for sane parameter values?
+#' @param mess logical; do you want messages? (default \code{FALSE})
 #' @return A \code{data.frame} with
 #' \code{R.l} = lower part of the interval for which TiR is calculated
 #' \code{R.h} = upper part of the interval for which TiR is calculated
@@ -40,7 +41,8 @@ tir  <-  function(x, # SKA DEN INTE HETA TIR?????
                   group,
                   y.NA,
                   incl.low,
-                  par.test = TRUE){
+                  par.test = TRUE,
+                  mess = FALSE){
     # FIRST PART makes sure arguments are ok  -------------------------->
     nx <- length(x)
     if( par.test) {
@@ -52,7 +54,7 @@ tir  <-  function(x, # SKA DEN INTE HETA TIR?????
         if( length(y)!=nx ) stop("[tir]: x and y of unequal length")
         if( nx==0 ) stop("[tir]: x,y has length 0")
         if( missing( y.int ) ) {
-            message("[tir]: 'y.int' missing and set to [-Inf, Inf]")
+            if(mess) message("[tir]: 'y.int' missing and set to [-Inf, Inf]")
             y.int <- c(-Inf,Inf)
         }
         if(length(y.int)<2 | any(is.na(y.int))) {
@@ -61,7 +63,8 @@ tir  <-  function(x, # SKA DEN INTE HETA TIR?????
         if( missing(incl.low) ) {
             incl.low <- FALSE
             if( length(y.int) == 2 ) {
-                message("[tir]: 'y.int' has length 2 and incl.low is set to FALSE")
+                if(mess)
+                    message("[tir]: 'y.int' has length 2 and incl.low is set to FALSE")
             }
         }
         if( !is.logical(incl.low) ) stop("[tir]: 'incl.low' must be logical")
@@ -69,7 +72,7 @@ tir  <-  function(x, # SKA DEN INTE HETA TIR?????
             warning("[TTR:] 'incl.low' set to FALSE since 'y.int' has length >2")
         }
         if( missing(x.int) ) {
-            message("[tir]: 'x.int' missing, default is range of 'x'")
+            if(mess) message("[tir]: 'x.int' missing, default is range of 'x'")
             x.int <- c( min(x), max(x) )
         }
         if( length(x.int)<2 | any(is.na(x.int))) {
