@@ -6,11 +6,12 @@
 #' @param y numeric vector (equal in length to \code{x})
 #' @param gap numeric singelton
 #' @param check logical - should we test if parameters are sane?
+#' @param mess logical; do you want messages?
 #' @importFrom dplyr data_frame
 #' @return A list of \code{tbl_df} ('data_frame') objects
 #' @export
 
-partition_gaps <- function(x, y, gap=5, check=TRUE){
+partition_gaps <- function(x, y, gap=5, check=TRUE, mess=FALSE){
     if(check) {
         if(typeof(df <- check_num_vec(x, y, pre_mess = "[partition_gaps]", mess=mess))!="logical"){
             if(!is.null(df)){

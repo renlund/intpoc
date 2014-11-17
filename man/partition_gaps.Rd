@@ -3,7 +3,7 @@
 \alias{partition_gaps}
 \title{Partition gaps in time series}
 \usage{
-partition_gaps(x, y, gap = 5, check = TRUE)
+partition_gaps(x, y, gap = 5, check = TRUE, mess = FALSE)
 }
 \arguments{
 \item{x}{numeric vector}
@@ -13,6 +13,8 @@ partition_gaps(x, y, gap = 5, check = TRUE)
 \item{gap}{numeric singelton}
 
 \item{check}{logical - should we test if parameters are sane?}
+
+\item{mess}{logical; do you want messages?}
 }
 \value{
 A list of \code{tbl_df} ('data_frame') objects
