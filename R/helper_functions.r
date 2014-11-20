@@ -201,19 +201,18 @@ vecre <- function(x, y, check=TRUE){
     s
 }
 
-win_mean_for_lapply <- function(df, x., win, check=FALSE, gap=Inf, mess=FALSE){
-    if(nrow(df)>1){
-        win_mean(
+win_mean_for_lapply <- function(df, x., win, check=TRUE, mess=FALSE){
+    tryCatch(
+        expr =  win_mean(
             x = df$x,
             y = df$y,
             x. = x.,
             win = win,
             check = check,
             mess = mess
-        )
-    } else {
-        NULL
-    }
+        ),
+        error = function(e) NULL
+    )
 }
 
 extract_stuff <- function(storage){
