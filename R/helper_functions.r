@@ -11,16 +11,16 @@ dput2 <- function(x){
 check_num_vec <- function(x, y, pre_mess="", y.NA="remove", mess=TRUE){
     changes_made <- FALSE
     if(any(is.na(x))) {
-        warning(paste(pre_mess, "no NA:s in x, please"))
+        if(mess) warning(paste(pre_mess, "no NA:s in x, please"))
         return(invisible(NA))
     }
     n <- length(x)
     if(length(y) != n) {
-        warning(paste(pre_mess, "x, y lengths differ"))
+        if(mess) warning(paste(pre_mess, "x, y lengths differ"))
         return(invisible(NA))
     }
     if(!y.NA %in% c("r", "remove", "i", "interpolate")){
-        warning("[check_num_vec] 'y.NA' should be 'remove' (or 'r') or 'interpolate' (or 'i'). Has been set to 'r'.")
+        if(mess) warning("[check_num_vec] 'y.NA' should be 'remove' (or 'r') or 'interpolate' (or 'i'). Has been set to 'r'.")
         y.NA <- "remove"
     }
     if(any(diff(sort(x))==0)){
@@ -39,12 +39,12 @@ check_num_vec <- function(x, y, pre_mess="", y.NA="remove", mess=TRUE){
         }
     }
     if(n<2) {
-        warning(paste(pre_mess), "(unique) x needs to be of length > 1")
+        if(mess) warning(paste(pre_mess), "(unique) x needs to be of length > 1")
         return(invisible(NA))
     }
     y_NA_indx <- is.na(y)
     if(all(y_NA_indx)) {
-        warning(paste(pre_mess, "y is too NA-infested"))
+        if(mess) warning(paste(pre_mess, "y is too NA-infested"))
         return(invisible(NA))
     }
     if(any(is.na(y))){
