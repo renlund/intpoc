@@ -55,7 +55,7 @@ win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE,
         L <- partition_gaps(x = x, y = y, gap = gap, check = FALSE)
         storage <- lapply(L, FUN = win_mean_for_lapply, x.=x., win=win)
         extr <- extract_stuff(storage)
-        data_frame(
+        dplyr::data_frame(
             int = extr["int"],
             sq_int = extr["sq_int"],
             span = extr["span"],
@@ -74,7 +74,7 @@ win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE,
             parts_info = extr["parts"]
         )
     } else {
-        data_frame(
+        dplyr::data_frame(
             int = sum(vecrea(x, y, check=FALSE)),
             sq_int = sum(vecre(x, y, check=FALSE)),
             span = diff(range(x)),
