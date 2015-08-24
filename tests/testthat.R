@@ -1,3 +1,4 @@
 library(testthat)
 library(intpoc)
-test_package("intpoc")
+
+test_check("intpoc")

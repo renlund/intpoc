@@ -1,7 +1,7 @@
 Package: intpoc
 Type: Package
 Title: Selected statistics of interpolated points
-Version: 0.2.0.9002
+Version: 0.2.0.9003
 Date: 2014-10-16
 Author: Who wrote it
 Maintainer: Henrik Renlund <henrikrenlund@gmail.com>
@@ -12,3 +12,4 @@ Description: Points are considered defining a piece-wise linear curve. For
 License: GPL-3
 Depends:
     dplyr
+Suggests: testthat
