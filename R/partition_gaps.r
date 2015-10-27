@@ -49,9 +49,12 @@ partition_gaps <- function(x, y, gap=90, check=TRUE, mess=FALSE){
 #' @export
 
 partition_tir <- function(x, y, gap = 90, check=TRUE, low.tol = 3, ...){
-    g <- partition_gaps(x = x, y = y, gap = gap, mess = TRUE)
-    gi <- lapply(g, function(x) nrow(x)>= low.tol)
+    g <- partition_gaps(x = x, y = y, gap = gap, check = check, mess = TRUE)
+    if(length(x) < low.tol) return(as.data.frame(NULL))
+    #gi <- lapply(g, function(x) nrow(x) >= low.tol)
+    gi <- lapply(g, function(X) length(unique(X$x)) >= low.tol)
     g <- g[unlist(gi)]
+    if(length(g) == 0) return(as.data.frame(NULL))
     fnc <- function(X) tir(x = X$x,  y = X$y, ...)
 #                            y.int = c(-Inf,2,3,Inf),
 #                            x.int = c(-Inf, Inf),
