@@ -2,9 +2,12 @@
 % Please edit documentation in R/partition_gaps.r
 \name{partition_gaps}
 \alias{partition_gaps}
+\alias{partition_tir}
 \title{Partition gaps in time series}
 \usage{
-partition_gaps(x, y, gap = 5, check = TRUE, mess = FALSE)
+partition_gaps(x, y, gap = 90, check = TRUE, mess = FALSE)
+
+partition_tir(x, y, gap = 90, check = TRUE, low.tol = 3, ...)
 }
 \arguments{
 \item{x}{numeric vector}
@@ -16,6 +19,11 @@ partition_gaps(x, y, gap = 5, check = TRUE, mess = FALSE)
 \item{check}{logical - should we test if parameters are sane?}
 
 \item{mess}{logical; do you want messages?}
+
+\item{low.tol}{the minimum number of points in each partition for proceeding
+with tir calculation}
+
+\item{...}{arguments passed to \code{tir}}
 }
 \value{
 A list of \code{tbl_df} ('data_frame') objects
@@ -24,5 +32,14 @@ A list of \code{tbl_df} ('data_frame') objects
 A time series defined by \code{x} (time) and \code{y}
   (measurement) is partitioned into shorter pieces whenever the time gap
   between consecutive points are greater than (or equal to) \code{gap}.
+
+\code{partion_tir}: apply \code{tir} to each part of \code{partition_gaps}
+}
+\section{Functions}{
+\itemize{
+\item \code{partition_tir}: 
+}}
+\note{
+\code{part_tir} is very BETA!
 }
 
