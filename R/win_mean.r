@@ -10,7 +10,8 @@
 #' @param check apply checking function \code{check_num_vec} to \code{x} and
 #'   \code{y}?
 #' @param mess messages on?
-#' @importFrom dplyr data_frame
+#' @importFrom stats na.omit sd
+#' @importFrom dplyr tibble
 #' @export
 
 win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE, mess=FALSE){
@@ -55,7 +56,7 @@ win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE,
         L <- partition_gaps(x = x, y = y, gap = gap, check = FALSE)
         storage <- lapply(L, FUN = win_mean_for_lapply, x.=x., win=win)
         extr <- extract_stuff(storage)
-        dplyr::data_frame(
+        dplyr::tibble(
             int = extr["int"],
             sq_int = extr["sq_int"],
             span = extr["span"],
@@ -74,7 +75,7 @@ win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE,
             parts_info = extr["parts"]
         )
     } else {
-        dplyr::data_frame(
+        dplyr::tibble(
             int = sum(vecrea(x, y, check=FALSE)),
             sq_int = sum(vecre(x, y, check=FALSE)),
             span = diff(range(x)),

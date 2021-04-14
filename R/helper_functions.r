@@ -2,11 +2,13 @@
 
 # 'dput2' is only used for tests
 
+#' @importFrom utils capture.output
+
 dput2 <- function(x){
     cat(gsub(" ", "", paste0(capture.output(dput(x, file="")), collapse=" ")))
 }
 
-#' @importFrom dplyr data_frame
+#' @importFrom dplyr tibble
 
 check_num_vec <- function(x, y, pre_mess="", y.NA="remove", mess=TRUE){
     changes_made <- FALSE
@@ -59,10 +61,10 @@ check_num_vec <- function(x, y, pre_mess="", y.NA="remove", mess=TRUE){
             changes_made  <- TRUE
         }
     }
-    if(changes_made) data_frame(x=x, y=y) else invisible(NULL)
+    if(changes_made) tibble(x=x, y=y) else invisible(NULL)
 }
 
-#' @importFrom dplyr data_frame
+#' @importFrom dplyr tibble
 
 windowize <- function(x, y, x., win, check=TRUE, pre_mess = "", mess=FALSE){
     changes_made <- FALSE
@@ -122,7 +124,7 @@ windowize <- function(x, y, x., win, check=TRUE, pre_mess = "", mess=FALSE){
             changes_made <- TRUE
         }
     }
-    if(changes_made) data_frame(x=x, y=y) else invisible(NULL)
+    if(changes_made) tibble(x=x, y=y) else invisible(NULL)
 }
 
 check_num_pair <- function(x, y, pre_mess=""){

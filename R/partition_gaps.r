@@ -7,8 +7,8 @@
 #' @param gap numeric singelton
 #' @param check logical - should we test if parameters are sane?
 #' @param mess logical; do you want messages?
-#' @importFrom dplyr data_frame
-#' @return A list of \code{tbl_df} ('data_frame') objects
+#' @importFrom dplyr tibble
+#' @return A list of \code{tbl_df} ('tibble') objects
 #' @export
 
 partition_gaps <- function(x, y, gap=90, check=TRUE, mess=FALSE){
@@ -26,14 +26,14 @@ partition_gaps <- function(x, y, gap=90, check=TRUE, mess=FALSE){
         L <- as.list(NULL)
         is <- c(0, w, length(x))
         for(indx in 1:(length(w)+1)){ # indx = 1
-            L[[indx]] <- data_frame(
+            L[[indx]] <- tibble(
                 x = x[(is[indx]+1):is[indx+1]],
                 y = y[(is[indx]+1):is[indx+1]]
             )
         }
         L
     } else {
-        list(data_frame(
+        list(tibble(
             x = x,
             y = y
             ))
@@ -41,27 +41,25 @@ partition_gaps <- function(x, y, gap=90, check=TRUE, mess=FALSE){
 }
 
 #' @description \code{partion_tir}: apply \code{tir} to each part of \code{partition_gaps}
-#' @describeIn partition_gaps
+#' @describeIn partition_gaps partition tir
 #' @param low.tol the minimum number of points in each partition for proceeding
 #'    with tir calculation
 #' @param ... arguments passed to \code{tir}
-#' @note \code{part_tir} is very BETA!
+#' @note \code{partition_tir} is very BETA!
 #' @export
 
-partition_tir <- function(x, y, gap = 90, check=TRUE, low.tol = 3, ...){
-    g <- partition_gaps(x = x, y = y, gap = gap, check = check, mess = TRUE)
-    if(length(x) < low.tol) return(as.data.frame(NULL))
+partition_tir <- function(x, y, gap = 90, check=TRUE, mess = FALSE, low.tol = 3, ...){
+    g <- partition_gaps(x = x, y = y, gap = gap, check = check, mess = mess)
+    null_ret <- tir(1:2,c(0,0), ...)
+    null_ret$Time <- NA
+    null_ret$TiR  <- NA
+    null_ret$percent <- NA
+    if(length(x) < low.tol) return(null_ret)
     #gi <- lapply(g, function(x) nrow(x) >= low.tol)
     gi <- lapply(g, function(X) length(unique(X$x)) >= low.tol)
     g <- g[unlist(gi)]
-    if(length(g) == 0) return(as.data.frame(NULL))
+    if(length(g) == 0) return(null_ret)
     fnc <- function(X) tir(x = X$x,  y = X$y, ...)
-#                            y.int = c(-Inf,2,3,Inf),
-#                            x.int = c(-Inf, Inf),
-#                            y.NA = "a",
-#                            group = TRUE,
-#                            incl.low = FALSE,
-#                            par.test = TRUE)
     tg <- lapply(g, fnc)
     RET <- tg[[1]]
     n <- length(tg)

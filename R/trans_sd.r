@@ -3,6 +3,7 @@
 #' @param x numeric vector
 #' @param y numeric vector
 #' @param ref reference vector
+#' @importFrom stats ecdf lm qnorm sd
 #' @references LIND, Marcus, et al. Variability of INR and its relationship with mortality, stroke, bleeding and hospitalisations in patients with atrial fibrillation. Thrombosis research, 2012, 129.1: 32-35.
 #' @examples
 #' # The code for trans_sd is equivalent to:
