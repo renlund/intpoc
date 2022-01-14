@@ -164,6 +164,6 @@ test_that("'win_mean' is somewhat sane", {
         n <- sample(2:1000, 1)
         x <- 1:n
         y <- round(runif(n = n, min=-1, max = 1), 1)
-        expect_less_than(abs(win_mean(x, y)$mean-mean(y)), 1/n)
+        expect_lt(abs(win_mean(x, y)$mean-mean(y)), 1/n)
     }
 })

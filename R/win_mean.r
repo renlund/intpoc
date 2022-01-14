@@ -13,7 +13,6 @@
 #' @importFrom stats na.omit sd
 #' @importFrom dplyr tibble
 #' @export
-
 win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE, mess=FALSE){
     original_sample_size <- length(x)
     y_copy <- na.omit(y)
@@ -92,3 +91,5 @@ win_mean <- function(x, y, x., win, gap = Inf, y.NA = "interpolate", check=TRUE,
         )
     }
 }
+
+utils::globalVariables(c('int', 'span', 'sq_int', 'n_y', 'sq_sum', 'raw_mean'))
