@@ -1,4 +1,4 @@
-![R build](https://github.com/renlund/intpoc/actions/workflows/r.yaml/badge.svg)
+[![R build](https://github.com/renlund/intpoc/actions/workflows/R/badge.svg)](https://github.com/renlund/intpoc/actions/workflows/r.yml)
 
 intpoc
 ======
